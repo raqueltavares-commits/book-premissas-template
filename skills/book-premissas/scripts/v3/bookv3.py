@@ -6,7 +6,7 @@ from pptx import Presentation
 from pptx.util import Pt
 from tplkit import Book, E  # noqa: F401
 
-REPO = os.path.expanduser("~/Claude/projetos/books-premissas/repo-template")
+REPO = os.path.expanduser("~/Claude/projetos/book-premissas-template")
 TPL = os.path.join(REPO, "template", "TEMPLATE_v3_CAMPECHE_SPOT_Book_de_Premissas_rev13-10-2026.pptx")
 D_ = "DEFINIDO"
 LEG = "Status do item: DEFINIDO"

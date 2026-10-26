@@ -26,7 +26,7 @@ Rachel pediu todos os books no layout igual ao Campeche v3. Gera um pptx novo (p
 a partir do template do repo dela e sobe convertido em Slides. Exemplos prontos: `books-premissas/v3/build_<spot>.py`
 (Batel, Cachoeira, Rosa Norte, Imbassaí, Itacaré). Funções comuns em `scripts/v3/bookv3.py`.
 1. Conteúdo = texto final da v2 (`deck.py get <v2> v2.json` + `deck.py text`). Nada novo inventado.
-2. Imagens: legado `repo-template/books/legado/<SPOT>_...pptx` (extrair amostras e marcadores, `old_markers(OLD, slide)`)
+2. Imagens: legado `~/Claude/projetos/book-premissas-template/books/legado/<SPOT>_...pptx` (extrair amostras e marcadores, `old_markers(OLD, slide)`)
    + renders do Drive (`08/05 - Imagens 3D` e `08/10 - Projeto de Interiores/.../02 - Imagens`), reduzidos a 2400 px.
 3. Copiar um `build_*.py` e trocar textos/imagens. Mapa: capa 1 · contexto 2 · como usar 3 · divisor 4 · moodboard 5 ·
    paleta 6 · leitura 7 · texturas 8 ×3 · vistas 11/12/13 · atenção 24 · divisor 14 · conceito 15 · fichas 27/30/32 ·

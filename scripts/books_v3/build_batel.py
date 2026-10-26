@@ -15,9 +15,9 @@ from pptx.util import Pt  # noqa: E402
 
 D = sys.argv[1]
 OUT = sys.argv[2]
-TPL = os.path.expanduser("~/Claude/projetos/books-premissas/repo-template/template/"
+TPL = os.path.expanduser("~/Claude/projetos/book-premissas-template/template/"
                          "TEMPLATE_v3_CAMPECHE_SPOT_Book_de_Premissas_rev13-10-2026.pptx")
-OLD = os.path.expanduser("~/Claude/projetos/books-premissas/repo-template/books/legado/BATEL_SPOT_Book_de_Premissas_legado.pptx")
+OLD = os.path.expanduser("~/Claude/projetos/book-premissas-template/books/legado/BATEL_SPOT_Book_de_Premissas_legado.pptx")
 src = lambda n: os.path.join(D, "src", n + ".jpg")
 old = lambda n: os.path.join(D, "old", n)
 sw = lambda n: os.path.join(D, "sw", n)
