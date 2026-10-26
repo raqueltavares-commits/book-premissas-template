@@ -37,13 +37,13 @@ def key():
     global _KEY
     if _KEY:
         return _KEY
-    paths = [os.path.join(_home(), ".claude.json"),
-             os.path.join(_home(), "Claude", ".claude", ".claude.json"),
-             os.path.join(_home(), ".claude", ".claude.json"),
-             os.path.join(os.environ.get("APPDATA", ""), "Claude", "claude_desktop_config.json"),
-             os.path.join(_home(), "Claude", ".claude", "projects", "C--Users-Seazone-Desktop-claude", "memory",
-                          "composio-como-raquel.md")]
     seen = []
+    env = (os.environ.get("COMPOSIO_API_KEY") or "").strip()
+    if env:
+        seen.append(env)
+    # Legacy fallback only: Claude Code configs. Never the desktop app config or memory notes.
+    paths = [os.path.join(_home(), ".claude.json"),
+             os.path.join(_home(), "Claude", ".claude", ".claude.json")]
     for p in paths:
         try:
             txt = open(p, encoding="utf-8").read()

@@ -13,7 +13,7 @@ sem unidades. Mantém o layout do book da Rachel (cópia v2 no Google Slides). R
 ## Fluxo (um Spot por vez)
 1. **Ler** o book original: `python scripts/deck.py get <ID> deck.json` e `deck.py text deck.json "MDF|metal|marcenaria|validar|pendente|definir|confirmar|unidade"`.
 2. **Perguntar o estilo** (Bruma, Industrial, Clean, Biofílico). Nunca supor.
-3. **Propor MDFs com imagens**: `swatches.py fetch` → baixar amostras originais do Drive → montar `compare` (book × catálogo, sugestão em verde) → enviar a imagem (SendUserFile) → esperar aprovação. Nome solto não serve.
+3. **Propor MDFs com imagens**: `swatches.py fetch` → baixar amostras originais do Drive → montar `compare` (book × catálogo, sugestão em verde) → salvar a imagem e mostrar o caminho completo (abrir com `cmd //c start "" "<arquivo>"`) → esperar aprovação. Nome solto não serve.
 4. **Copiar** o original na mesma pasta (Drive `COPY_FILE_ADVANCED`, nome "...Interiores das Áreas Comuns v2").
 5. **Spec + fase1**: escrever `spec.json` (ver `migrate.py` doc) com as trocas de texto exatas (copiar do `deck.py text`), linhas/slide de unidades e slide de materiais. Rodar `migrate.py fase1 spec.json --dry`, conferir, rodar sem `--dry`. Trocas "sem ocorrência" = texto não bateu: corrigir e refazer só elas.
 6. **Amostras**: `swatches.py swatch/color` + `upload` (reusar IDs de `regras.md`). Preencher `slide_mdf` e `trocar_imagens`; rodar `migrate.py fase2`.
