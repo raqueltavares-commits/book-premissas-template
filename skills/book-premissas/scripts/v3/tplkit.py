@@ -212,7 +212,9 @@ class Slide:
             for k in ("l", "r", "t", "b"):
                 if k in src.attrib: del src.attrib[k]
         pic._element.find(".//" + qn("p:cNvPr")).set("descr", os.path.basename(path))
-        if old != rid:
+        # drop_rel do python-pptx só conta r:id, não r:embed: confere se outro
+        # quadro do slide (ex.: um clone) ainda usa a imagem antiga antes de remover.
+        if old != rid and not self.s._element.xpath(f'.//a:blip[@r:embed="{old}"]'):
             self.s.part.drop_rel(old)
         return win
 

@@ -18,14 +18,17 @@ spec.json:
                "subtitulo": "Padrões Berneck ... (rev. DD/MM/AAAA). Referência visual, não substitui amostra física.",
                "cards": [{"tag": "T25", "titulo": "MDF Crômio", "aplicacao": "Aplicação: ...",
                           "especificacao": "Especificação: ...", "obra": "Obra: ...", "imagem": "DRIVE_FILE_ID"}]},
- "trocar_imagens": {"p20_i26": "DRIVE_FILE_ID"}  # amostras circulares/retangulares de cards existentes
+ "trocar_imagens": {"p20_i26": "DRIVE_FILE_ID"}, # amostras circulares/retangulares de cards existentes
+ "status_definido": {"p21_i11": [4]}             # opcional: linhas cuja decisao JA esta escrita no deck
 }
-As trocas de nome ("Interiores das áreas comuns", estilo na capa, status -> DEFINIDO verde) sao automaticas.
+As trocas de nome ("Interiores das áreas comuns", estilo na capa) sao automaticas. Status -> DEFINIDO verde so
+nas linhas com decisao: alguma `troca` muda texto de outra celula da linha, ou a linha esta em `status_definido`.
+As demais ficam como estao e saem listadas como "SEM DECISAO" (decidir e rodar de novo).
 
 Detalhes do spec:
 - trocas: [pagina, texto_exato, novo]. pagina = objectId do slide (ex. "p5") ou null = deck inteiro. Funciona em
   shapes E celulas de tabela. Copie o texto exato de `deck.py text` (sem o \\n final). Trocas rodam na ordem.
-- remover_linhas: indices 0-based contando o cabecalho (linha 0 = cabecalho), do deck ANTES da fase1.
+- remover_linhas / status_definido: indices 0-based contando o cabecalho (linha 0 = cabecalho), do deck ANTES da fase1.
 - remover_slides / slide_materiais: objectId do slide (ver `deck.py slides`).
 - O slide duplicado ganha o id "<slide_materiais>mdf" e seus elementos "<slide_materiais>mdf_iN".
 - slide_mdf: 1 a 6 cards (o slide base tem 6; sobras sao apagadas). Tags continuam a numeracao do book (T25...).
@@ -49,6 +52,11 @@ a = "das áreas comuns"
 GREEN = {"opaqueColor": {"rgbColor": {"red": 0x1E / 255, "green": 0x7F / 255, "blue": 0x5C / 255}}}
 LABELS = ("Aplicação: ", "Especificação: ", "Obra: ")
 EMU_DESCE_SUBTITULO = 520000
+
+
+def _u16(s):
+    """Tamanho em unidades UTF-16 (indices da API do Slides)."""
+    return len(s.encode("utf-16-le")) // 2
 
 
 def rat(page, old, new):
@@ -111,12 +119,34 @@ def auto_naming(deck, estilo):
     return reqs
 
 
-def status_cells(deck):
+STATUS_ABERTO = ("A VALIDAR", "PENDENTE", "A COTAR")
+
+
+def _linha_decidida(pid, cells, trocas):
+    """A linha tem decisao no spec se alguma troca (do slide ou global) altera o texto
+    de outra celula da mesma linha."""
+    textos = [txt(c) for c in cells if txt(c).strip() not in STATUS_ABERTO]
+    return any((p is None or p == pid) and old and old != new and any(old in t for t in textos)
+               for p, old, new in trocas)
+
+
+def status_cells(deck, trocas=(), status_definido=None):
+    """Status aberto -> DEFINIDO so quando ha decisao para a linha (regras.md: todo item
+    vira DEFINIDO *com a decisao escrita*). Sem decisao, mantem e avisa."""
     reqs = []
+    status_definido = status_definido or {}
     for pid, e in tables(deck):
         for r, row in enumerate(e["table"]["tableRows"]):
+            decidida = None
             for c, cell in enumerate(row["tableCells"]):
-                if txt(cell).strip() in ("A VALIDAR", "PENDENTE", "A COTAR"):
+                if txt(cell).strip() in STATUS_ABERTO:
+                    if decidida is None:
+                        decidida = (r in status_definido.get(e["objectId"], [])
+                                    or _linha_decidida(pid, row["tableCells"], trocas))
+                    if not decidida:
+                        resto = " | ".join(txt(x).strip() for x in row["tableCells"] if txt(x).strip())
+                        print(f"  SEM DECISAO [{e['objectId']} linha {r}]: {resto[:90]!r} -> continua {txt(cell).strip()}")
+                        continue
                     loc = {"rowIndex": r, "columnIndex": c}
                     reqs += [{"deleteText": {"objectId": e["objectId"], "cellLocation": loc, "textRange": {"type": "ALL"}}},
                              {"insertText": {"objectId": e["objectId"], "cellLocation": loc, "insertionIndex": 0, "text": "DEFINIDO"}},
@@ -129,7 +159,7 @@ def status_cells(deck):
 def fase1(spec, deck):
     reqs = [rat(p, o, n) for p, o, n in spec.get("trocas", [])]
     reqs += auto_naming(deck, spec["estilo"])
-    reqs += status_cells(deck)
+    reqs += status_cells(deck, spec.get("trocas", []), spec.get("status_definido"))
     for oid, rows in spec.get("remover_linhas", {}).items():
         for r in sorted(rows, reverse=True):
             reqs.append({"deleteTableRow": {"tableObjectId": oid, "cellLocation": {"rowIndex": r, "columnIndex": 0}}})
@@ -159,14 +189,17 @@ def fase2(spec, deck):
             sys.exit(f"ERRO: {M} não existe; rode a fase1 antes.")
         md = spec["slide_mdf"]
 
-        texts_m = [t for pid, e, t in shapes(deck) if pid == M]
-
         def put(oid, new):
+            """Troca o texto so desta shape (por objectId): replaceAllText no slide
+            atingiria tambem outro card com o mesmo texto antigo. Insere o novo no
+            inicio (herda o estilo do texto atual) e apaga o antigo logo depois."""
             pid, old = by_id[oid]
-            if old != new and texts_m.count(old) > 1:
-                print(f"  aviso: texto repetido no slide de MDFs, troca pode atingir mais de um card: {old[:60]!r}")
             if old != new:
-                reqs.append(rat(M, old, new))
+                reqs.append({"insertText": {"objectId": oid, "insertionIndex": 0, "text": new}})
+                if old:
+                    ini = _u16(new)
+                    reqs.append({"deleteText": {"objectId": oid, "textRange": {
+                        "type": "FIXED_RANGE", "startIndex": ini, "endIndex": ini + _u16(old)}}})
             final[oid] = new
         put(f"{M}_i6", md["titulo"])
         if md.get("subtitulo"):
@@ -255,6 +288,9 @@ def main():
             if "replaceAllText" in r:
                 x = r["replaceAllText"]
                 print(f"  [{(x.get('pageObjectIds') or ['*'])[0]}] {x['containsText']['text'][:70]!r} -> {x['replaceText'][:70]!r}")
+            elif "insertText" in r and "cellLocation" not in r["insertText"]:
+                x = r["insertText"]
+                print(f"  [{x['objectId']}] -> {x['text'][:70]!r}")
         return
     replies = composio.batch(spec["presentation_id"], reqs, deck["revisionId"])
     zero = [r["replaceAllText"]["containsText"]["text"][:80] for r, rep in zip(reqs, replies)

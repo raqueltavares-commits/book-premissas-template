@@ -24,7 +24,7 @@ Fonte das regras: Raquel Tavares (Lançamentos/Interiores) + README do repositó
   MDF/metal aprovado; cada "Obra:" diz "compatibilizar memorial de interiores (<MDF antigo>)".
 - Sempre **Google Slides**, cópia na **mesma pasta** do book da Rachel, nome
   "<SPOT> - Book de Premissas de Fachada e Interiores das Áreas Comuns v2" (v3, v4... se já existir). Original intacto.
-- Mensagem no Slack só com OK explícito de quem pediu o book, assinada "_Enviado por Claude_".
+- Slack para a Rachel só com OK explícito da Raquel, como r.tavares, assinado "_Enviado por Claude_". Slack pelo Composio do Seazone Hub: ToolSearch "+seazone-hub composio" → `mcp__seazone-hub__composio-COMPOSIO_SEARCH_TOOLS` (toolkit SLACK, "send message") → `mcp__seazone-hub__composio-COMPOSIO_MULTI_EXECUTE_TOOL` com `tool_slug` `SLACK_SEND_MESSAGE`, `account` `slack_rial-kilim`, `arguments` {`channel`: `D07E8QJV751` (DM Rachel) ou `C0BD06X3KK6`, `markdown_text`}; nunca `mcp__slack-raquel`.
 
 ## Catálogo por estilo (MDF Berneck · metal)
 | Estilo | MDF | Metal |
@@ -67,6 +67,8 @@ O brise **nunca é PVC**. A cor e o acabamento ficam os mesmos que o book, o exe
 - **Demais regiões** (Sul, Sudeste, Centro-Oeste): **alumínio com o acabamento que já estava** (ex.: brise amadeirado →
   alumínio com acabamento amadeirado no mesmo tom).
 Vale só para brise/ripado de **fachada**. Painéis ripados de interiores (recepção, rooftop) não mudam.
+**Ripado de interiores (Raquel 22/10/2026):** se a fonte diz PVC amadeirado, **mantém PVC amadeirado** (não entra no
+painel de MDF); se é ripado de MDF, vira **Carvalho Treviso**.
 Texturas de fachada (cimento queimado, concreto ripado) ficam como estão no book: a restrição de área é da skill
 `conceito-fachada`, não desta.
 
@@ -99,4 +101,5 @@ e projeto legal só compatibilizam. Quando imagem e Briefing mostram **cores dif
   metal preto `1-APZ90Rl8-OrrjjG1VE-tBmciU6sl1Re` · metal grafite RAL 7024 `15y4sOpM_35-hK6KkFVHHpYOJpd7oYIHZ` ·
   metal bege RAL 1013 `1WypfI9eTCf_0UJ7qBBMcqrJ-PlwLRLM6`.
 - Amostras originais dos MDFs antigos: buscar no Drive pelo nome (ex. `name contains 'TAUARI'`) e baixar.
+- Slack: DM Rachel `D07E8QJV751` · canal #szni-projetos-estruturação `C0BD06X3KK6` · Rachel Souto `U07DXLFP1GT`.
 - Layout V03 (template Campeche, script `build_canasvieiras.py` + `tplkit.py`) no repositório da Rachel: só usar se ela pedir.

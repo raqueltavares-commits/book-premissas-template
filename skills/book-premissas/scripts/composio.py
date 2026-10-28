@@ -3,8 +3,10 @@
 Uso CLI:
   python composio.py SLUG args.json [saida.json]
 
-A API key e descoberta nos configs locais (~/.claude.json etc.) e nunca e impressa.
-Conta: variavel de ambiente BOOK_USER (e-mail da conta Google conectada no Composio; obrigatoria).
+A API key vem da variavel de usuario COMPOSIO_API_KEY (preferido). Se ela faltar ou nao
+autenticar, cai no ~/.claude.json (legado). Nunca le o config do app desktop nem notas de
+memoria, e a chave nunca e impressa nem copiada para arquivo.
+Conta: variavel BOOK_USER (padrao raquel.tavares@seazone.com.br).
 """
 import json
 import os
@@ -14,7 +16,7 @@ import urllib.error
 import urllib.request
 
 BASE = "https://backend.composio.dev"
-UID = os.environ.get("BOOK_USER") or sys.exit("ERRO: defina BOOK_USER com o e-mail da conta Google no Composio.")
+UID = os.environ.get("BOOK_USER", "raquel.tavares@seazone.com.br")
 _KEY = None
 
 
@@ -56,7 +58,8 @@ def key():
         if _key_works(k):
             _KEY = k
             return k
-    sys.exit(f"ERRO: nenhuma API key do Composio valida (candidatas: {len(seen)}).")
+    sys.exit("ERRO: nenhuma API key do Composio valida. Defina COMPOSIO_API_KEY como variavel de usuario "
+             f"(candidatas testadas: {len(seen)}).")
 
 
 def post(path, body):
@@ -67,9 +70,12 @@ def post(path, body):
         return json.load(r)
 
 
-def run(slug, args):
+def run(slug, args, version=None):
+    body = {"user_id": UID, "arguments": args}
+    if version:
+        body["version"] = version  # some tools (e.g. GOOGLEDRIVE_RESUMABLE_UPLOAD) 404 without it
     try:
-        return post(f"/api/v3/tools/execute/{slug}", {"user_id": UID, "arguments": args})
+        return post(f"/api/v3/tools/execute/{slug}", body)
     except urllib.error.HTTPError as e:
         return {"successful": False, "error": f"HTTP {e.code}: {e.read().decode()[:1500]}"}
 

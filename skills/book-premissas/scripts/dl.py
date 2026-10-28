@@ -26,10 +26,44 @@ def fetch(fid):
     return c.get("name") or fid, urllib.request.urlopen(url, timeout=600).read()
 
 
-def save(out_dir, name, data):
+_IMG_EXTS = (".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".bmp")
+
+
+def safe_path(out_dir, name):
+    """Keep only the file name and refuse anything that would land outside out_dir."""
+    base = os.path.basename(name.replace("\\", "/"))
+    if base in ("", ".", ".."):
+        raise ValueError(f"nome de arquivo invalido: {name!r}")
+    root = os.path.realpath(out_dir)
+    path = os.path.realpath(os.path.join(root, base))
+    if os.path.dirname(path) != root:
+        raise ValueError(f"caminho fora da pasta de saida: {name!r}")
+    return path
+
+
+def final_path(path, name):
+    """Path the file will actually have on disk (images become .jpg)."""
+    if os.path.splitext(name)[1].lower() in _IMG_EXTS:
+        return os.path.splitext(path)[0] + ".jpg"
+    return path
+
+
+def save(out_dir, name, data, fid=None, taken=None):
+    """Save `data` as `name` inside out_dir. Never overwrites: if the final path already
+    exists (this run or a previous one), add the suffix _<fid>. Returns None when that
+    suffixed file also exists (same file already downloaded)."""
     ext = os.path.splitext(name)[1].lower()
-    path = os.path.join(out_dir, name)
-    if ext in (".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".bmp"):
+    path = safe_path(out_dir, name)
+    taken = taken if taken is not None else set()
+    fp = final_path(path, name)
+    if fp in taken or os.path.exists(fp):
+        if not fid:
+            return None
+        stem, e = os.path.splitext(os.path.basename(path))
+        path = safe_path(out_dir, f"{stem}_{fid}{e}")
+        if os.path.exists(final_path(path, name)):
+            return None
+    if ext in _IMG_EXTS:
         from PIL import Image
         im = Image.open(io.BytesIO(data))
         im = im.convert("RGB")
@@ -40,7 +74,9 @@ def save(out_dir, name, data):
         path = os.path.splitext(path)[0] + ".jpg"
         im.save(path, "JPEG", quality=90)
     else:
-        open(path, "wb").write(data)
+        with open(path, "wb") as f:
+            f.write(data)
+    taken.add(path)
     return path
 
 
@@ -55,11 +91,19 @@ def main():
         else:
             items.append(a)
     import time
+    taken = set()  # final paths written in this run (avoid silent overwrite)
     for it in items:
         fid, _, name = it.partition("=")
-        if name and (os.path.exists(os.path.join(out_dir, name + ".jpg")) or os.path.exists(os.path.join(out_dir, name))):
-            print("ja existe", name)
-            continue
+        if name:
+            try:
+                p = safe_path(out_dir, name)
+            except ValueError as e:
+                print("ERRO", fid, e)
+                continue
+            # same final name save() would use (foto.png -> foto.jpg; "foto" -> foto.jpg)
+            if os.path.exists(final_path(p, name)) or os.path.exists(p + ".jpg") or os.path.exists(p):
+                print("ja existe", name)
+                continue
         data = None
         for tent in range(6):
             try:
@@ -81,7 +125,11 @@ def main():
             name = name if os.path.splitext(name)[1] else name + ext
         else:
             name = orig
-        print(save(out_dir, name, data), len(data))
+        try:
+            saved = save(out_dir, name, data, fid=fid, taken=taken)
+            print(saved if saved else f"ja existe {name}", len(data))
+        except ValueError as e:
+            print("ERRO", fid, e)
 
 
 if __name__ == "__main__":

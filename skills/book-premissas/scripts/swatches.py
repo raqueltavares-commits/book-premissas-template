@@ -153,7 +153,10 @@ def upload(folder, files):
         fid = (res.get("data") or {}).get("id")
         if not fid:
             print(name, "ERRO", str(res)[:300]); continue
-        composio.run("GOOGLEDRIVE_ADD_FILE_SHARING_PREFERENCE", {"file_id": fid, "role": "reader", "type": "anyone"})
+        sh = composio.run("GOOGLEDRIVE_ADD_FILE_SHARING_PREFERENCE", {"file_id": fid, "role": "reader", "type": "anyone"})
+        if not sh.get("successful", True) or sh.get("error"):
+            # without public read the Slides batch can't fetch the image: don't hand out the ID
+            print(name, "ERRO compartilhamento", fid, str(sh.get("error") or sh)[:300]); continue
         print(name, fid)
 
 
