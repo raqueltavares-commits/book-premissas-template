@@ -42,7 +42,8 @@ Nenhuma informação inventada: tudo vem das fontes do Spot (imagens de lançame
 | 4–13 | **01 Fachada** | Imagens de lançamento (moodboard) · paleta de materiais · leitura geral com legenda numerada · mapa de texturas **T01–T12** (4 por slide: Onde / Especificação / Atenção na obra) · vistas com marcação e especificação (frontal, lateral, acesso) |
 | 14–32 | **02 Interiores · áreas comuns** | Conceito Seazone × situação registrada · decisões de projeto (antes × agora) · revisões (ex.: nova recepção) com moodboard, itens com QTD e status (A VALIDAR / A COTAR / DEFINIDO / PENDENTE), pendências · referência de lançamento · fichas de premissas (recepção, corredores, rooftop interno e externo) |
 | 33–37 | **03 Materiais de interiores** | Mapa de materialidade **T13–T28** para compra e aprovação de amostras, incluindo slide de **MDFs e cores de metal** (T25–T28) |
-| 38 | Encerramento | |
+| 38–45 | **04 Comunicação visual** (desde 30/10/2026) | Número das unidades (referência, elevação cotada em escala, ficha) · família de números · fachada e acesso · recepção e corredores · rooftop · segurança e regras gerais. Medidas em escala pelo render; tudo DEFINIDO. Exemplo: `scripts/books_v3/build_comunicacao_visual_campeche.py` |
+| 46 | Encerramento | |
 
 ## Identidade visual
 

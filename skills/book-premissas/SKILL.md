@@ -1,6 +1,6 @@
 ---
 name: book-premissas
-description: Use when Raquel (Lançamentos/Interiores, Seazone) asks to migrate, update or validate a Spot's "Book de Premissas de Fachada e Interiores" — "migra o book do <Spot>", "atualiza o book de premissas", "deixa tudo DEFINIDO", "troca os MDFs do book pelo estilo", "manda os books pra Rachel", or mentions Rachel Souto's books, template v3/Campeche or "interiores das áreas comuns".
+description: Use when Raquel (Lançamentos/Interiores, Seazone) asks to migrate, update or validate a Spot's "Book de Premissas de Fachada e Interiores" — "migra o book do <Spot>", "atualiza o book de premissas", "deixa tudo DEFINIDO", "troca os MDFs do book pelo estilo", "manda os books pra Rachel", "especificação da plaquinha/número das unidades", "comunicação visual do prédio", or mentions Rachel Souto's books, template v3/Campeche or "interiores das áreas comuns".
 ---
 
 # Book de Premissas (migração para as regras v3)
@@ -35,6 +35,9 @@ a partir do template do repo dela e sobe convertido em Slides. Exemplos prontos:
    (recorte com `focus,hfrac`), linhas vazias de ficha (preencher as 9) e títulos em 2 linhas.
 5. Subir: `POST /api/v3/files/upload/request` + PUT → MCP `mcp__drive-raquel__GOOGLEDRIVE_RESUMABLE_UPLOAD` com `metadata.mimeType`
    = `application/vnd.google-apps.presentation`, na pasta do book, nome "... Áreas Comuns v3". Conferir `deck.py thumbs`.
+6. **Seção 04 · Comunicação visual** (obrigatória desde 30/10/2026, entra antes do encerramento): número das
+   unidades com elevação cotada, família de números, fachada, recepção, corredores, rooftop e segurança.
+   Ler `references/comunicacao-visual.md` (regras, fontes, mapa de slides, padrão do Campeche).
 
 ## Common Mistakes
 | Erro | Correção |
@@ -48,5 +51,7 @@ a partir do template do repo dela e sobe convertido em Slides. Exemplos prontos:
 | V03: marcador "fora do quadro" | Imagem mais larga que o quadro: usar `hfrac` menor/focus, ou a imagem inteira e converter v |
 | V03: amostra do legado ruim (céu, guarda-sol) | Recortar do render com `card(..., img, focus, hfrac)` |
 | Inventar produto/cor para fechar "à definir" | Usar fonte existente (imagem/briefing/LOG/memorial) ou regra fixa (B208); senão perguntar |
+| Comunicação visual com medida genérica ou "a confirmar" | Medir em escala no render (porta 80 × 210 como régua) e propor tudo pelo projeto |
+| Comunicação visual entregue em página/PDF corrido | Sempre slides no layout v3, como seção 04 do book |
 
 Scripts usam a conta raquel.tavares no Composio (`BOOK_USER` muda). Chave lida da variável de usuário `COMPOSIO_API_KEY` (fallback legado: `.claude.json` do Claude Code), nunca impressa; nunca do config do app desktop nem de nota de memória.
