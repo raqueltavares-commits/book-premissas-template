@@ -9,6 +9,8 @@ description: Use when Raquel (Lançamentos/Interiores, Seazone) asks to migrate,
 O book vai para o administrador de obras assinar: tudo DEFINIDO, estilo do Spot, MDFs do catálogo do estilo,
 sem unidades. Mantém o layout do book da Rachel (cópia v2 no Google Slides). Regras e decisões-padrão:
 `references/regras.md` — **ler antes de começar**.
+Todo book, no fluxo v2 ou no Modo V03, termina com a **seção 04 · Comunicação visual** antes do encerramento
+(`references/comunicacao-visual.md`).
 
 ## Fluxo (um Spot por vez)
 1. **Ler** o book original: `py -3 scripts/deck.py get <ID> deck.json` e `deck.py text deck.json "MDF|metal|marcenaria|validar|pendente|definir|confirmar|unidade"`.
@@ -18,6 +20,7 @@ sem unidades. Mantém o layout do book da Rachel (cópia v2 no Google Slides). R
 5. **Spec + fase1**: escrever `spec.json` (ver `migrate.py` doc) com as trocas de texto exatas (copiar do `deck.py text`), linhas/slide de unidades e slide de materiais. Rodar `migrate.py fase1 spec.json --dry`, conferir, rodar sem `--dry`. Trocas "sem ocorrência" = texto não bateu: corrigir e refazer só elas.
 6. **Amostras**: `swatches.py swatch/color` + `upload` (reusar IDs de `regras.md`). Preencher `slide_mdf` e `trocar_imagens`; rodar `migrate.py fase2`.
 7. **Conferir**: `deck.py thumbs` em capa, slide 2, divisor 02, texturas, slide de MDFs e comparativos; `deck.py text ... "A VALIDAR|PENDENTE|CRÍTICO|a definir|confirmar"` tem de voltar vazio (exceto nomes como "pendente" de luminária).
+7b. **Seção 04 · Comunicação visual**: montar e inserir antes do encerramento (ver `references/comunicacao-visual.md`).
 8. **Entregar** à Raquel: link + tabela das decisões tomadas pela regra (o que ela precisa revisar, com conflitos imagem × briefing em destaque). Registrar no `memory.md` do projeto.
 9. **Slack** só com OK explícito (texto mostrado antes, salvo se ela ditou o conteúdo). Slack pelo Composio do Seazone Hub: ToolSearch "+seazone-hub composio" → `mcp__seazone-hub__composio-COMPOSIO_SEARCH_TOOLS` (toolkit SLACK, "send message") → `mcp__seazone-hub__composio-COMPOSIO_MULTI_EXECUTE_TOOL` com `tool_slug` `SLACK_SEND_MESSAGE`, `account` `slack_rial-kilim`, `arguments` {`channel`: `D07E8QJV751` (DM Rachel) ou `C0BD06X3KK6`, `markdown_text`}; nunca `mcp__slack-raquel`.
 
@@ -33,11 +36,11 @@ a partir do template do repo dela e sobe convertido em Slides. Exemplos prontos:
    moodboard interiores 28 (9 img) ou 31 (11 img) · atenção 24 · divisor 33 · materiais 34 ×2 · MDF 37 · fim 38.
 4. `py -3 build_x.py DADOS out.pptx` → `C:\Users\Seazone\Claude\projetos\book-premissas-template\scripts\render.ps1` (PowerPoint COM) → folhas 2×3 → conferir marcadores, amostras
    (recorte com `focus,hfrac`), linhas vazias de ficha (preencher as 9) e títulos em 2 linhas.
-5. Subir: `POST /api/v3/files/upload/request` + PUT → MCP `mcp__drive-raquel__GOOGLEDRIVE_RESUMABLE_UPLOAD` com `metadata.mimeType`
-   = `application/vnd.google-apps.presentation`, na pasta do book, nome "... Áreas Comuns v3". Conferir `deck.py thumbs`.
-6. **Seção 04 · Comunicação visual** (obrigatória desde 30/10/2026, entra antes do encerramento): número das
+5. **Seção 04 · Comunicação visual** (obrigatória desde 30/10/2026, entra antes do encerramento e antes de subir): número das
    unidades com elevação cotada, família de números, fachada, recepção, corredores, rooftop e segurança.
    Ler `references/comunicacao-visual.md` (regras, fontes, mapa de slides, padrão do Campeche).
+6. Subir: `POST /api/v3/files/upload/request` + PUT → MCP `mcp__drive-raquel__GOOGLEDRIVE_RESUMABLE_UPLOAD` com `metadata.mimeType`
+   = `application/vnd.google-apps.presentation`, na pasta do book, nome "... Áreas Comuns v3". Conferir `deck.py thumbs`.
 
 ## Common Mistakes
 | Erro | Correção |

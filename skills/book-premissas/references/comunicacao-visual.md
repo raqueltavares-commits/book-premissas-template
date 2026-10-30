@@ -12,8 +12,10 @@ continua a do book. Índice do slide 3 ganha a linha "04 Comunicação visual".
 ## Regras de conteúdo
 - Mesmas do book: tudo **DEFINIDO**, sem custo, nada de "a confirmar". O que a fonte não diz, **propor**
   com base no projeto (estilo, metal do catálogo, renders) e listar na entrega o que foi proposta sua.
-- **Medidas tiradas em escala** do render ou do Revit: usar a folha da porta (80 × 210 cm) como régua e medir
-  altura do dígito, distância à guarnição, altura do piso, posição da arandela. Nunca medida genérica.
+- **Medidas tiradas em escala**: primeiro a elevação/vista ortogonal do Revit; se só houver render, medir só
+  elementos no **mesmo plano da porta** (mesma parede, vista de frente), usando a folha da porta (80 × 210 cm) como
+  régua: altura do dígito, distância à guarnição, altura do piso, posição da arandela. Em perspectiva não comparar
+  peças de paredes diferentes. Nunca medida genérica.
 - Desenho de elevação **em escala real** (cotas do piso acabado + escala gráfica). Número fora de escala em
   relação à porta foi o erro que a Raquel apontou.
 - Quantidades do **SpotSys** (`mcp__spotsys-prod__decor_list_typologies(projeto, incluir_unidades=True)`):
