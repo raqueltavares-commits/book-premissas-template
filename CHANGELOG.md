@@ -1,5 +1,12 @@
 # Changelog
 
+## Brises por região + 10 books migrados + skill — 15/10/2026
+
+- **Regra nova (reunião Rachel × Raquel):** brise de fachada nunca em PVC. Nordeste = madeira no mesmo tom, com a ressalva "pode ser substituído por alumínio com o mesmo tom e acabamento"; demais regiões = alumínio com o acabamento que já estava. Painéis ripados de interiores não mudam.
+- Regra aplicada nos 10 books v3 (Batel, Cachoeira, Rosa Norte, Marista 144, Ilha do Campeche II e Santo Antônio em alumínio amadeirado; Imbassaí, Itacaré, Salvador e Meireles em madeira com a ressalva). Links do Drive mantidos.
+- **Pendente:** o Canasvieiras v3 (`books/`) ainda cita brises em PVC preto e Oak; pela regra nova, vira alumínio preto e Oak.
+- Novos: `skills/book-premissas/` (skill do Claude) e `scripts/books_v3/` (geradores dos 10 books).
+
 ## Regra geral: Papel de Presente no lugar de Branco Puro — 13/10/2026
 
 - Nenhum empreendimento usa Branco Puro na fachada externa (suja muito). O claro da fachada passa a ser **Papel de Presente Suvinil (B208)**, como no Cachoeira Spot.

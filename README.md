@@ -14,6 +14,10 @@ O template anterior (Novo Campeche Spot III) fica em [`template/legacy/`](templa
 - **Prevalecem o Briefing de Projeto e a imagem de lançamento.** O executivo deve replicar as cores e texturas do lançamento (mesma lógica do Cachoeira Spot). Onde o executivo diverge, o book indica "compatibilizar o executivo" ou "ajustar antes da compra".
 - As páginas de pendências viram **"Pontos de atenção na obra"**, com o que a obra precisa observar, tudo como DEFINIDO.
 - **Fachada externa nunca em Branco Puro** (suja muito): em todos os empreendimentos o branco/claro de fachada é **Papel de Presente Suvinil (B208)**, o mesmo tom do Cachoeira Spot. Onde o executivo indicar Branco Puro, o book manda compatibilizar.
+- **Brises de fachada por região** (reunião Rachel × Raquel, 15/10/2026): o brise **nunca é PVC**; cor e acabamento seguem o que o book, o executivo e a imagem já descrevem.
+  - **Nordeste** (Salvador, Imbassaí, Itacaré, Trancoso, Meireles…): **madeira** no mesmo tom, com a ressalva "pode ser substituído por alumínio com o mesmo tom e acabamento" (quem decide é o administrador da obra).
+  - **Demais regiões:** **alumínio com o acabamento que já estava** (ex.: brise amadeirado → alumínio com acabamento amadeirado).
+  - Vale só para brise/ripado de fachada; painéis ripados de interiores não mudam.
 - Canasvieiras: **portas e rodapés das áreas comuns PRETOS**, como na imagem de lançamento (decisão de 13/10/2026).
 
 **Entra:** imagens externas de lançamento, materiais, cores, texturas, imagens e o comparativo **lançamento × executivo**, além dos interiores das **áreas comuns** (recepção, corredores, rooftop).
@@ -38,7 +42,8 @@ Nenhuma informação inventada: tudo vem das fontes do Spot (imagens de lançame
 | 4–13 | **01 Fachada** | Imagens de lançamento (moodboard) · paleta de materiais · leitura geral com legenda numerada · mapa de texturas **T01–T12** (4 por slide: Onde / Especificação / Atenção na obra) · vistas com marcação e especificação (frontal, lateral, acesso) |
 | 14–32 | **02 Interiores · áreas comuns** | Conceito Seazone × situação registrada · decisões de projeto (antes × agora) · revisões (ex.: nova recepção) com moodboard, itens com QTD e status (A VALIDAR / A COTAR / DEFINIDO / PENDENTE), pendências · referência de lançamento · fichas de premissas (recepção, corredores, rooftop interno e externo) |
 | 33–37 | **03 Materiais de interiores** | Mapa de materialidade **T13–T28** para compra e aprovação de amostras, incluindo slide de **MDFs e cores de metal** (T25–T28) |
-| 38 | Encerramento | |
+| 38–45 | **04 Comunicação visual** (desde 30/10/2026) | Número das unidades (referência, elevação cotada em escala, ficha) · família de números · fachada e acesso · recepção e corredores · rooftop · segurança e regras gerais. Medidas em escala pelo render; tudo DEFINIDO. Exemplo: `scripts/books_v3/build_comunicacao_visual_campeche.py` |
+| 46 | Encerramento | |
 
 ## Identidade visual
 
@@ -57,6 +62,16 @@ Navy `#00143D` · coral `#FC6058` · Arial · barra de cabeçalho com logo · ro
 |---|---|---|---|
 | Campeche Spot | Google Slides (link acima) | 38 | 13/10/2026 |
 | Canasvieiras Spot | [`books/CANASVIEIRAS_SPOT_Book_de_Premissas_v3.pptx`](books/) | 27 | 13/10/2026 |
+| Batel Spot · Bruma | Google Slides (pasta do book) | 27 | 14/10/2026 |
+| Cachoeira Spot · Industrial | Google Slides (pasta do book) | 26 | 14/10/2026 |
+| Rosa Norte Spot · Industrial | Google Slides (pasta do book) | 26 | 14/10/2026 |
+| Imbassaí Spot · Clean | Google Slides (pasta do book) | 25 | 14/10/2026 |
+| Itacaré Spot · Biofílico | Google Slides (pasta do book) | 25 | 14/10/2026 |
+| Salvador Spot · Clean | Google Slides (pasta do book) | 25 | 15/10/2026 |
+| Marista 144 Spot · Industrial | Google Slides (pasta do book) | 26 | 15/10/2026 |
+| Ilha do Campeche II Spot · Industrial | Google Slides (pasta do book) | 25 | 15/10/2026 |
+| Santo Antônio Spot · Industrial | Google Slides (pasta do book) | 26 | 15/10/2026 |
+| Meireles Spot · Industrial | Google Slides (pasta do book) | 26 | 15/10/2026 |
 
 ## Books a migrar (`books/legado/`)
 
@@ -67,20 +82,20 @@ Atenção: os books legados **ainda não seguem as regras atuais**. Podem ter it
 | Spot | Arquivo legado | Situação |
 |---|---|---|
 | Barra Spot | `BARRA_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Batel Spot | `BATEL_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
+| Batel Spot | `BATEL_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
 | Bonito Spot | `BONITO_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Cachoeira Beach Spot | `CACHOEIRA_BEACH_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Cachoeira Spot | `CACHOEIRA_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
+| Cachoeira Beach Spot | `CACHOEIRA_BEACH_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Cachoeira Spot | `CACHOEIRA_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
 | Campeche Spot | `CAMPECHE_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3 = template) |
 | Canasvieiras Spot | `CANASVIEIRAS_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
-| Ilha do Campeche Spot II | `ILHA_DO_CAMPECHE_SPOT_II_Book_de_Premissas_legado.pptx` | a migrar |
-| Imbassaí Spot | `IMBASSAI_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Itacaré Spot | `ITACARE_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Marista 144 Spot | `MARISTA_144_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Meireles Spot | `MEIRELES_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Rosa Norte Spot | `ROSA_NORTE_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Salvador Spot | `SALVADOR_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
-| Santo Antônio Spot | `SANTO_ANTONIO_SPOT_Book_de_Premissas_legado.pptx` | a migrar |
+| Ilha do Campeche Spot II | `ILHA_DO_CAMPECHE_SPOT_II_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Imbassaí Spot | `IMBASSAI_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Itacaré Spot | `ITACARE_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Marista 144 Spot | `MARISTA_144_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Meireles Spot | `MEIRELES_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Rosa Norte Spot | `ROSA_NORTE_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Salvador Spot | `SALVADOR_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
+| Santo Antônio Spot | `SANTO_ANTONIO_SPOT_Book_de_Premissas_legado.pptx` | migrado (v3) |
 
 ## Gerador (`scripts/`)
 
@@ -91,6 +106,12 @@ Atenção: os books legados **ainda não seguem as regras atuais**. Podem ter it
 ```
 py scripts/build_canasvieiras.py "saida.pptx"
 ```
+
+- `books_v3/build_<spot>.py`: geradores dos 10 books migrados em 14–15/10/2026 (Batel, Cachoeira, Rosa Norte, Imbassaí, Itacaré, Salvador, Marista 144, Ilha do Campeche II, Santo Antônio, Meireles). Recebem a pasta de dados local do Spot (renders, imagens do legado e amostras).
+
+## Skill do Claude (`skills/book-premissas/`)
+
+Skill que migra/atualiza os books com as regras desta página: `SKILL.md` (fluxo), `references/regras.md` (regras e decisões-padrão, incluindo brise por região) e `scripts/` (leitura do deck, amostras de MDF, montagem v3, download e upload no Drive via Composio). Para usar: copiar a pasta para `~/.claude/skills/book-premissas/` e definir a variável `BOOK_USER` com o e-mail da conta Google conectada no Composio.
 
 Requisitos: Python com `python-pptx` e `Pillow`; as imagens de origem ficam nas pastas locais de cada Spot (não versionadas aqui).
 
